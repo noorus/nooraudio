@@ -46,7 +46,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -110,7 +110,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -153,24 +153,36 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Source\StdAfx.cpp"
+				RelativePath=".\Source\AudioSource.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPIAudioDevice.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPIAudioPlayer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPIAudioRenderer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPIAudioSession.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPIDeviceEvents.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPIDeviceManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\WASAPISessionEvents.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -178,10 +190,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\Source\StdAfx.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

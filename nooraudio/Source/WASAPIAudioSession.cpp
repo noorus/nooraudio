@@ -2,6 +2,8 @@
 
 namespace nooraudio {
 
+  using std::wstring;
+
   //-- WASAPIAudioSession -----------------------------------------------------
 
   WASAPIAudioSession::WASAPIAudioSession( WASAPIAudioPlayer* pPlayer,

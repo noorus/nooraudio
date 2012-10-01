@@ -2,6 +2,8 @@
 
 namespace nooraudio {
 
+  using std::wstring;
+
   //-- WASAPIAudioDevice class ------------------------------------------------
 
   WASAPIAudioDevice::WASAPIAudioDevice( IMMDevice* device ):

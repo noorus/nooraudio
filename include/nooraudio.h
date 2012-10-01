@@ -43,6 +43,14 @@ namespace nooraudio {
 
 # define _STDC STDMETHODCALLTYPE
 
+# ifndef SAFE_DELETE
+#   define SAFE_DELETE(p) {if(p){delete p;(p)=NULL;}}
+# endif
+
+# ifndef SAFE_RELEASE
+#   define SAFE_RELEASE(p) {if(p){p->Release();(p)=NULL;}}
+# endif
+
   const CLSID CLSID_MMDeviceEnumerator  = __uuidof( MMDeviceEnumerator );
   const IID   IID_IMMDeviceEnumerator   = __uuidof( IMMDeviceEnumerator );
   const IID   IID_IMMNotificationClient = __uuidof( IMMNotificationClient );
@@ -50,6 +58,15 @@ namespace nooraudio {
   const IID   IID_IAudioRenderClient    = __uuidof( IAudioRenderClient );
   const IID   IID_IAudioSessionControl  = __uuidof( IAudioSessionControl );
   const IID   IID_IAudioSessionEvents   = __uuidof( IAudioSessionEvents );
+
+  class WASAPIDeviceEvents;
+  class WASAPISessionEvents;
+  class WASAPIAudioDevice;
+  class WASAPIAudioPlayer;
+  class WASAPIDeviceManager;
+  class WASAPIAudioSession;
+  class WASAPIAudioRenderer;
+  class AudioSource;
 
   class WASAPIDeviceEvents: public IMMNotificationClient {
   protected:
@@ -95,13 +112,13 @@ namespace nooraudio {
     IMMDevice* mDevice;
     IPropertyStore* mProps;
     IAudioClient* mAudioClient;
-    wstring mName;
+    std::wstring mName;
     bool mActive;
     WAVEFORMATEX* mWaveFormat;
   public:
     WASAPIAudioDevice( IMMDevice* device );
     IMMDevice* getIMMDevice();
-    const wstring& getName();
+    const std::wstring& getName();
     IAudioClient* getAudioClient();
     WAVEFORMATEX* getWaveFormatPtr();
     bool isActive();
@@ -111,6 +128,89 @@ namespace nooraudio {
     void stop();
     void deActivate();
     ~WASAPIAudioDevice();
+  };
+
+  class WASAPIDeviceManager {
+  protected:
+    IMMDeviceEnumerator* mEnumerator;
+    WASAPIDeviceEvents* mEvents;
+    WASAPIAudioPlayer* mPlayer;
+  public:
+    WASAPIDeviceManager( WASAPIAudioPlayer* pPlayer );
+    WASAPIAudioDevice* createDefaultDevice();
+    ~WASAPIDeviceManager();
+  };
+
+  class WASAPIAudioRenderer {
+  protected:
+    IAudioRenderClient* mRenderClient;
+  public:
+    WASAPIAudioRenderer( IAudioClient* pClient );
+    void getBuffer( unsigned int frames, BYTE** data );
+    void releaseBuffer( unsigned int framesWritten, DWORD flags );
+    ~WASAPIAudioRenderer();
+  };
+
+  class WASAPIAudioSession {
+  protected:
+    WASAPIAudioPlayer* mPlayer;
+    IAudioSessionControl* mSessionControl;
+    WASAPISessionEvents* mEvents;
+  public:
+    WASAPIAudioSession( WASAPIAudioPlayer* pPlayer, IAudioClient* pClient );
+    void setIcon( const std::wstring& sPath );
+    void setName( const std::wstring& sName );
+    ~WASAPIAudioSession();
+  };
+
+  class WASAPIAudioPlayer {
+  protected:
+    IMMDevice* mRawDevice;
+    WASAPIAudioDevice* mDevice;
+    AudioSource* mSource;
+    WASAPIAudioRenderer* mRenderer;
+    WASAPIAudioSession* mSession;
+    WASAPIDeviceManager* mManager;
+    UINT32 bufferFrameCount;
+    REFERENCE_TIME hnsActualDuration;
+    DWORD flags;
+    SRWLOCK mSRWLock;
+  public:
+    WASAPIAudioPlayer( AudioSource* pSource );
+    DWORD render( long frames );
+    void onDeviceLost();
+    void onDefaultDeviceChanged( EDataFlow flow, ERole role, LPCWSTR devID );
+    void doStop();
+    void play();
+    void run();
+    void stop();
+    ~WASAPIAudioPlayer();
+  };
+
+  enum SampleSize {
+    SampleSize_8bit,
+    SampleSize_16bit
+  };
+
+  class AudioSource {
+  protected:
+    FILE* mFile;
+    WAVEFORMATEX* mWaveFormat;
+    SampleSize mSampleSize;
+    long mSampleBits;
+    long mSampleBytes;
+    void resolveSampleSize( SampleSize sampleSize );
+  public:
+    AudioSource( const std::wstring& fileName, SampleSize sampleSize );
+    virtual ~AudioSource();
+    virtual long getChannels() = 0;
+    virtual long getSampleRate() = 0;
+    virtual long getBitRate() = 0;
+    virtual float getTotalTime() = 0;
+    virtual float getCurrentTime() = 0;
+    virtual void setFormat( WAVEFORMATEX* waveFormat ) = 0;
+    virtual void render( long frames, BYTE* data, DWORD& flags ) = 0;
+    virtual void renderLooping( long frames, BYTE* data, DWORD& flags ) = 0;
   };
 
 }

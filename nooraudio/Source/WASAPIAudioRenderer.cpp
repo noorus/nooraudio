@@ -2,6 +2,8 @@
 
 namespace nooraudio {
 
+  using std::wstring;
+
   //-- WASAPIAudioRenderer class ----------------------------------------------
 
   WASAPIAudioRenderer::WASAPIAudioRenderer( IAudioClient* pClient ): mRenderClient( NULL )

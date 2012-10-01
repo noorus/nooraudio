@@ -2,6 +2,8 @@
 
 namespace nooraudio {
 
+  using std::wstring;
+
   //-- WASAPIDeviceEvents class -----------------------------------------------
 
   WASAPIDeviceEvents::WASAPIDeviceEvents( WASAPIAudioPlayer* pPlayer ):
