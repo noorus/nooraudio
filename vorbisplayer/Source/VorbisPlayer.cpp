@@ -25,7 +25,6 @@ int wmain( int argc, wchar_t *argv[], wchar_t *envp[] )
   bool comInitialized = false;
   VorbisAudioSource* source = NULL;
   WASAPIAudioPlayer* player = NULL;
-  wprintf_s( L"agc: %d\r\n", argc );
   try
   {
     if ( FAILED( CoInitializeEx( NULL, COINIT_MULTITHREADED ) ) )
