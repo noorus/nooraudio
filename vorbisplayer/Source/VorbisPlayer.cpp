@@ -16,16 +16,23 @@ std::wstring printTime( float time )
 
 int wmain( int argc, wchar_t *argv[], wchar_t *envp[] )
 {
+  if ( argc < 2 )
+  {
+    wprintf_s( L"Error: No filename given!\r\n" );
+    return EXIT_FAILURE;
+  }
+  std::wstring file = argv[1];
   bool comInitialized = false;
   VorbisAudioSource* source = NULL;
   WASAPIAudioPlayer* player = NULL;
+  wprintf_s( L"agc: %d\r\n", argc );
   try
   {
     if ( FAILED( CoInitializeEx( NULL, COINIT_MULTITHREADED ) ) )
       throw new std::exception( "CoInitializeEx failed" );
     comInitialized = true;
 
-    source = new VorbisAudioSource( L"regulate.ogg", SampleSize_16bit );
+    source = new VorbisAudioSource( file, SampleSize_16bit );
 
     StringMap tagMap = source->getTagMap();
     for ( StringMap::iterator it = tagMap.begin(); it != tagMap.end(); ++it )
