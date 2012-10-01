@@ -1,8 +1,12 @@
 #pragma once
 
 // Windows Vista or newer
-#define NTDDI_VERSION NTDDI_VISTA
-#define _WIN32_WINNT _WIN32_WINNT_VISTA
+#ifndef NTDDI_VERSION
+# define NTDDI_VERSION NTDDI_VISTA
+#endif
+#ifndef _WIN32_WINNT
+# define _WIN32_WINNT _WIN32_WINNT_VISTA
+#endif
 #include <sdkddkver.h>
 
 // Generic headers

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="testbed"
+	Name="vorbisplayer"
 	ProjectGUID="{F2CA98AC-4004-4D3B-A8B5-A8A055B1F1E8}"
-	RootNamespace="testbed"
+	RootNamespace="vorbisplayer"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -61,7 +61,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libogg_static.lib libvorbis_static.lib libvorbisfile_static.lib"
+				AdditionalDependencies="nooraudio_d.lib libogg_static.lib libvorbis_static.lib libvorbisfile_static.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)lib&quot;;&quot;$(SolutionDir)libvorbis-1.3.3\win32\VS2008\Win32\Release&quot;;&quot;$(SolutionDir)libogg-1.3.0\win32\VS2008\Win32\Release&quot;"
 				GenerateDebugInformation="true"
@@ -92,7 +93,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -115,15 +116,17 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
+				Optimization="1"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)include&quot;;&quot;$(SolutionDir)libvorbis-1.3.3\include&quot;;&quot;$(SolutionDir)libogg-1.3.0\include&quot;;&quot;$(SolutionDir)libvorbis-1.3.3\lib&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				EnableEnhancedInstructionSet="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -136,10 +139,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libogg_static.lib libvorbis_static.lib libvorbisfile_static.lib"
+				AdditionalDependencies="nooraudio.lib libogg_static.lib libvorbis_static.lib libvorbisfile_static.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)lib&quot;;&quot;$(SolutionDir)libvorbis-1.3.3\win32\VS2008\Win32\Release&quot;;&quot;$(SolutionDir)libogg-1.3.0\win32\VS2008\Win32\Release&quot;"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -177,7 +180,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Source\main.cpp"
+				RelativePath=".\Source\VorbisPlayer.cpp"
 				>
 			</File>
 			<File

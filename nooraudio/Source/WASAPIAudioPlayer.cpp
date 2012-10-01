@@ -15,13 +15,13 @@ namespace nooraudio {
 
   void WASAPIAudioPlayer::onDeviceLost()
   {
-    wprintf_s( L"onDeviceLost()\r\n" );
+    // wprintf_s( L"onDeviceLost()\r\n" );
   }
 
   void WASAPIAudioPlayer::onDefaultDeviceChanged( EDataFlow flow, ERole role,
   LPCWSTR devID )
   {
-    wprintf_s( L"onDefaultDeviceChanged()\r\n" );
+    // wprintf_s( L"onDefaultDeviceChanged()\r\n" );
   }
 
   DWORD WASAPIAudioPlayer::render( long frames )
@@ -37,10 +37,10 @@ namespace nooraudio {
   void WASAPIAudioPlayer::play()
   {
     AcquireSRWLockExclusive( &mSRWLock );
-    wprintf_s( L"Player::play()\r\n" );
     flags = 0;
+    // Always using default audio output device for now
     mDevice = mManager->createDefaultDevice();
-    wprintf_s( L"- Audio Device: %s\r\n", mDevice->getName().c_str() );
+    // wprintf_s( L"- Audio Device: %s\r\n", mDevice->getName().c_str() );
     mDevice->activate();
     mSource->setFormat( mDevice->getWaveFormatPtr() );
     mDevice->initialize();
@@ -57,7 +57,6 @@ namespace nooraudio {
   void WASAPIAudioPlayer::run()
   {
     AcquireSRWLockExclusive( &mSRWLock );
-    wprintf_s( L"Player::run()\r\n" );
     if ( !mDevice )
     {
       Sleep( 250 );
@@ -79,7 +78,6 @@ namespace nooraudio {
   void WASAPIAudioPlayer::stop()
   {
     AcquireSRWLockExclusive( &mSRWLock );
-    wprintf_s( L"Player::stop()\r\n" );
     if ( mDevice )
       mDevice->stop();
     SAFE_DELETE( mSession );

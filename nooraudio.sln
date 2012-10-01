@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nooraudio", "nooraudio\nooraudio.vcproj", "{837F1353-4D13-4F71-892E-DE026F761406}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testbed", "testbed\testbed.vcproj", "{F2CA98AC-4004-4D3B-A8B5-A8A055B1F1E8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vorbisplayer", "vorbisplayer\vorbisplayer.vcproj", "{F2CA98AC-4004-4D3B-A8B5-A8A055B1F1E8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{837F1353-4D13-4F71-892E-DE026F761406} = {837F1353-4D13-4F71-892E-DE026F761406}
 	EndProjectSection
