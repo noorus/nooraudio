@@ -5,11 +5,11 @@
 
 using namespace nooraudio;
 
-std::wstring printTime( float time )
+std::wstring printTime( double time )
 {
   WCHAR s[32];
   swprintf_s( s, 32, L"%01.0f:%02.0f:%02.2f\r\n",
-    floor( time / 3600.0f ), floor( fmod( time, 3600.0f ) / 60.0f ), fmod( time, 60.0f )
+    floor( time / 3600.0 ), floor( fmod( time, 3600.0 ) / 60.0 ), fmod( time, 60.0 )
   );
   return s;
 }
@@ -32,6 +32,7 @@ int wmain( int argc, wchar_t *argv[], wchar_t *envp[] )
     comInitialized = true;
 
     source = new VorbisAudioSource( file, SampleSize_16bit );
+    source->setLooping( true );
 
     StringMap tagMap = source->getTagMap();
     for ( StringMap::iterator it = tagMap.begin(); it != tagMap.end(); ++it )

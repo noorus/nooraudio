@@ -29,7 +29,7 @@ namespace nooraudio {
     BYTE* data;
     DWORD flags = 0;
     mRenderer->getBuffer( frames, &data );
-    mSource->renderLooping( frames, data, flags );
+    mSource->render( frames, data, flags );
     mRenderer->releaseBuffer( frames, flags );
     return flags;
   }
@@ -40,7 +40,6 @@ namespace nooraudio {
     flags = 0;
     // Always using default audio output device for now
     mDevice = mManager->createDefaultDevice();
-    // wprintf_s( L"- Audio Device: %s\r\n", mDevice->getName().c_str() );
     mDevice->activate();
     mSource->setFormat( mDevice->getWaveFormatPtr() );
     mDevice->initialize();
@@ -49,7 +48,7 @@ namespace nooraudio {
     mRenderer = new WASAPIAudioRenderer( mDevice->getAudioClient() );
     mSession = new WASAPIAudioSession( this, mDevice->getAudioClient() );
     flags = render( bufferFrameCount );
-    hnsActualDuration = (double)REFTIMES_PER_SEC * bufferFrameCount / mDevice->getWaveFormatPtr()->nSamplesPerSec;
+    hnsActualDuration = (REFERENCE_TIME)( (double)REFTIMES_PER_SEC * bufferFrameCount / mDevice->getWaveFormatPtr()->nSamplesPerSec );
     mDevice->start();
     ReleaseSRWLockExclusive( &mSRWLock );
   }

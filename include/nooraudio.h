@@ -210,11 +210,10 @@ namespace nooraudio {
     virtual long getChannels() = 0;
     virtual long getSampleRate() = 0;
     virtual long getBitRate() = 0;
-    virtual float getTotalTime() = 0;
-    virtual float getCurrentTime() = 0;
+    virtual double getTotalTime() = 0;
+    virtual double getCurrentTime() = 0;
     virtual void setFormat( WAVEFORMATEX* waveFormat ) = 0;
     virtual void render( long frames, BYTE* data, DWORD& flags ) = 0;
-    virtual void renderLooping( long frames, BYTE* data, DWORD& flags ) = 0;
   };
 
 }
