@@ -1,6 +1,9 @@
 #pragma once
 
 #include "nooraudio.h"
+#include <map>
+#include <vector>
+#include <math.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
 

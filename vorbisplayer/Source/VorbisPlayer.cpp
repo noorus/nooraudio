@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <stdio.h>
+#include <boost/algorithm/string.hpp>
 #include <nooraudio.h>
 #include "VorbisAudioSource.h"
 
