@@ -1,7 +1,8 @@
 nooraudio
 =========
 
-A small audio output library using WASAPI.
+A small audio output library using WASAPI.  
+Currently only supports the WASAPI push method.
 
 Compiling
 ---------
